@@ -37,21 +37,21 @@ public class SecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain permitAllFilterChain(HttpSecurity http) throws Exception {
-        System.out.println("🔒 INICIANDO CONFIGURACIÓN DE SEGURIDAD - PERMITIENDO TODO");
+        System.out.println("INICIANDO CONFIGURACIÓN DE SEGURIDAD - PERMITIENDO TODO");
         
         return http
             .securityMatcher("/**")
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> {
-                System.out.println("🔒 DESHABILITANDO CSRF");
+                System.out.println("DESHABILITANDO CSRF");
                 csrf.disable();
             })
             .authorizeHttpRequests(auth -> {
-                System.out.println("🔒 CONFIGURANDO AUTORIZACIÓN: PERMITIENDO TODAS LAS PETICIONES");
-                auth.anyRequest().permitAll(); // ⭐ PERMITIR TODO TEMPORALMENTE
+                System.out.println("CONFIGURANDO AUTORIZACIÓN: PERMITIENDO TODAS LAS PETICIONES");
+                auth.anyRequest().permitAll(); 
             })
             .sessionManagement(session -> {
-                System.out.println("🔒 CONFIGURANDO SESIÓN STATELESS");
+                System.out.println("CONFIGURANDO SESIÓN STATELESS");
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             })
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -80,7 +80,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        System.out.println("🔒 CONFIGURANDO CORS PARA TODOS LOS ORÍGENES");
+        System.out.println("CONFIGURANDO CORS PARA TODOS LOS ORÍGENES");
         
         configuration.setAllowedOriginPatterns(Arrays.asList("*")); // Permitir todos los orígenes
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"));

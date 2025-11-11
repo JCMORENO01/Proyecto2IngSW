@@ -17,19 +17,9 @@ public class LoanController {
         this.loanService = loanService;
     }
 
-    // ************ SIMULACIÓN DE G2 (AUTENTICACIÓN) ************
-    // En el mundo real, G2 te da esto. Aquí lo forzamos.
     private Integer getUsuarioSimuladoId() {
-        // Probemos con el usuario 101 (el que tiene un préstamo vencido)
-        // return 101;
-
-        // Probemos con el usuario 102 (el que tiene 3 préstamos)
-        // return 102;
-
-        // Probemos con un usuario nuevo sin problemas
         return 101;
     }
-    // **********************************************************
 
 
     /**
@@ -45,7 +35,7 @@ public class LoanController {
             return ResponseEntity.ok(new LoanResponse(nuevoPrestamo));
 
         } catch (Exception e) {
-            // Si tu servicio lanzó un error, devuélvelo
+            // Si lanza un error, devuelve
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

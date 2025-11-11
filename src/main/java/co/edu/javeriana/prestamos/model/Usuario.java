@@ -32,9 +32,7 @@ public class Usuario {
     
     private Integer id_estado_usuario;
     private Integer intentos_fallidos;
-    
-    // ⭐ CAMPO FALTANTE AÑADIDO PARA SOLUCIONAR EL ERROR DE SQL
-    // Se inicializa a 'false' por defecto para evitar el error 'doesn't have a default value'.
+
     @Column(name = "requiere_cambio_pass", nullable = false)
     private Boolean requiereCambioPass = false; 
 
@@ -66,9 +64,5 @@ public class Usuario {
         if (intentos_fallidos == null) {
             intentos_fallidos = 0;
         }
-        // El campo 'requiereCambioPass' ya se inicializa arriba, pero se mantiene la lógica si fuese necesario.
-        // if (requiereCambioPass == null) {
-        //     requiereCambioPass = false;
-        // }
     }
 }

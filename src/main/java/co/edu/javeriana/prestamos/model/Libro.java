@@ -18,7 +18,7 @@ public class Libro {
     private int cantidad_total;
     private int cantidad_disponible;
 
-    // Constructor simulado (para pruebas)
+    // Constructor simulado 
     public Libro(Integer id, String titulo, String autor, int disponible) {
         this.id_libro = id;
         this.titulo = titulo;

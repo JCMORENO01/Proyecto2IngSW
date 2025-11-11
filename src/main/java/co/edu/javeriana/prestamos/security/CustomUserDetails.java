@@ -44,8 +44,7 @@ public class CustomUserDetails implements UserDetails {
 
   @Override
   public String getPassword() {
-    return usuario.getContrasena(); // <-- CORRECCIÓN APLICADA AQUÍ
-  }
+    return usuario.getContrasena(); // 
 
   @Override
   public String getUsername() {

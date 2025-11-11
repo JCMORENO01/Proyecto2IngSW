@@ -28,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         String method = request.getMethod();
         
-        System.out.println("🔍 JwtFilter - Ruta: " + path + " | Método: " + method);
+        System.out.println(" JwtFilter - Ruta: " + path + " | Método: " + method);
         
         // ⭐ EXCLUIR COMPLETAMENTE EL FILTRO PARA ENDPOINTS PÚBLICOS
         boolean shouldSkip = path.startsWith("/api/auth/") ||
@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                path.startsWith("/webjars") ||
                path.startsWith("/h2-console");
         
-        System.out.println("🔍 JwtFilter - Saltar filtro: " + shouldSkip);
+        System.out.println(" JwtFilter - Saltar filtro: " + shouldSkip);
         return shouldSkip;
     }
 
@@ -49,30 +49,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         
-        System.out.println("🔍 JwtFilter - Procesando petición: " + request.getRequestURI());
+        System.out.println(" JwtFilter - Procesando petición: " + request.getRequestURI());
         
         final String authHeader = request.getHeader("Authorization");
         
         // Solo procesar JWT si existe el header
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("🔍 JwtFilter - No hay token JWT, continuando...");
+            System.out.println(" JwtFilter - No hay token JWT, continuando...");
             filterChain.doFilter(request, response);
             return;
         }
 
         final String jwt = authHeader.substring(7);
-        System.out.println("🔍 JwtFilter - Token JWT encontrado");
+        System.out.println(" JwtFilter - Token JWT encontrado");
 
         try {
             final String username = jwtService.extractUsername(jwt);
-            System.out.println("🔍 JwtFilter - Usuario extraído: " + username);
+            System.out.println(" JwtFilter - Usuario extraído: " + username);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                System.out.println("🔍 JwtFilter - UserDetails cargado: " + userDetails.getUsername());
+                System.out.println(" JwtFilter - UserDetails cargado: " + userDetails.getUsername());
                 
                 if (jwtService.isTokenValid(jwt, userDetails)) {
-                    System.out.println("🔍 JwtFilter - Token válido, estableciendo autenticación");
+                    System.out.println(" JwtFilter - Token válido, estableciendo autenticación");
                     
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
@@ -83,14 +83,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                     
-                    System.out.println("🔍 JwtFilter - Autenticación establecida para: " + username);
+                    System.out.println(" JwtFilter - Autenticación establecida para: " + username);
                 } else {
-                    System.out.println("🔍 JwtFilter - Token inválido");
+                    System.out.println(" JwtFilter - Token inválido");
                 }
             }
 
         } catch (Exception e) {
-            System.err.println("❌ ERROR en JwtFilter: " + e.getMessage());
+            System.err.println(" ERROR en JwtFilter: " + e.getMessage());
             e.printStackTrace();
         }
 

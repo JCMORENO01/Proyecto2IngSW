@@ -8,9 +8,8 @@ public class LoanResponse {
     private Integer id_prestamo;
     private Integer id_libro;
     private Integer id_usuario;
-    private String estado; // TRADUCIDO A STRING
+    private String estado; 
 
-    // Constructor para traducir el INT a String
     public LoanResponse(Prestamo p) {
         this.id_prestamo = p.getId_prestamo();
         this.id_libro = p.getId_libro();

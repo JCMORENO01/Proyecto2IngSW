@@ -24,10 +24,10 @@ public class RegisterRequest {
         regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&].*$",
         message = "La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial"
     )
-    private String contrasena; // ⭐ CAMBIADO de 'contrasena' a 'contrasena'
+    private String contrasena; 
     
     @NotNull(message = "El tipo de usuario es obligatorio")
     @Min(value = 1, message = "El tipo de usuario debe ser 1 (Estudiante), 2 (Bibliotecario) o 3 (Admin)")
     @Max(value = 3, message = "El tipo de usuario debe ser 1 (Estudiante), 2 (Bibliotecario) o 3 (Admin)")
-    private Integer id_tipo_usuario; // ⭐ CAMBIADO de 'tipousuario' a 'id_tipo_usuario' y a Integer
+    private Integer id_tipo_usuario; 
 }

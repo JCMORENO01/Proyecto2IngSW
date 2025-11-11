@@ -53,7 +53,7 @@ public class AuthController {
         System.out.println("   - contrasena: " + (request.getContrasena() != null ? "[PRESENTE]" : "null"));
         System.out.println("   - id_tipo_usuario: " + request.getId_tipo_usuario());
 
-        // ⭐ CAPTURAR ERRORES DE VALIDACIÓN
+
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())

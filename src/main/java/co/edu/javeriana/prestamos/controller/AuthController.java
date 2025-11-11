@@ -44,8 +44,8 @@ public class AuthController {
     })
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request, BindingResult bindingResult) {
-        System.out.println("📥 RECIBIENDO PETICIÓN REGISTER: " + request.getUsername());
-        System.out.println("📝 DATOS RECIBIDOS:");
+        System.out.println("RECIBIENDO PETICIÓN REGISTER: " + request.getUsername());
+        System.out.println("DATOS RECIBIDOS:");
         System.out.println("   - username: " + request.getUsername());
         System.out.println("   - nombre: " + request.getNombre());
         System.out.println("   - email: " + request.getEmail());
@@ -59,7 +59,7 @@ public class AuthController {
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .collect(Collectors.joining(", "));
             
-            System.out.println("❌ ERRORES DE VALIDACIÓN: " + errorMessage);
+            System.out.println("ERRORES DE VALIDACIÓN: " + errorMessage);
             
             Map<String, String> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach(error -> 
@@ -74,17 +74,17 @@ public class AuthController {
         }
         
         try {
-            System.out.println("🔄 PROCESANDO REGISTRO PARA: " + request.getEmail());
+            System.out.println("PROCESANDO REGISTRO PARA: " + request.getEmail());
             AuthResponse response = authService.register(request);
-            System.out.println("✅ REGISTRO EXITOSO: " + request.getUsername());
+            System.out.println("REGISTRO EXITOSO: " + request.getUsername());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (ValidationException e) {
-            System.out.println("❌ ERROR VALIDACIÓN: " + e.getMessage());
+            System.out.println("ERROR VALIDACIÓN: " + e.getMessage());
             Map<String, String> error = new HashMap<>();
             error.put("error", e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
         } catch (Exception e) {
-            System.out.println("❌ ERROR INESPERADO EN REGISTER: " + e.getMessage());
+            System.out.println("ERROR INESPERADO EN REGISTER: " + e.getMessage());
             e.printStackTrace();
             Map<String, String> error = new HashMap<>();
             error.put("error", "Error al registrar usuario: " + e.getMessage());
@@ -102,15 +102,14 @@ public class AuthController {
     })
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request, BindingResult bindingResult) {
-        System.out.println("📥 RECIBIENDO PETICIÓN LOGIN: " + request.getUsername());
+        System.out.println("RECIBIENDO PETICIÓN LOGIN: " + request.getUsername());
         
-        // ⭐ CAPTURAR ERRORES DE VALIDACIÓN EN LOGIN
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .collect(Collectors.joining(", "));
             
-            System.out.println("❌ ERRORES DE VALIDACIÓN EN LOGIN: " + errorMessage);
+            System.out.println("ERRORES DE VALIDACIÓN EN LOGIN: " + errorMessage);
             
             Map<String, String> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach(error -> 
@@ -125,15 +124,15 @@ public class AuthController {
         
         try {
             AuthResponse response = authService.login(request);
-            System.out.println("✅ LOGIN EXITOSO: " + request.getUsername());
+            System.out.println("LOGIN EXITOSO: " + request.getUsername());
             return ResponseEntity.ok(response);
         } catch (AuthException e) {
-            System.out.println("❌ ERROR AUTENTICACIÓN: " + e.getMessage());
+            System.out.println("ERROR AUTENTICACIÓN: " + e.getMessage());
             Map<String, String> error = new HashMap<>();
             error.put("error", e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
         } catch (Exception e) {
-            System.out.println("❌ ERROR INESPERADO EN LOGIN: " + e.getMessage());
+            System.out.println("ERROR INESPERADO EN LOGIN: " + e.getMessage());
             e.printStackTrace();
             Map<String, String> error = new HashMap<>();
             error.put("error", "Error en el proceso de autenticación: " + e.getMessage());
@@ -141,7 +140,6 @@ public class AuthController {
         }
     }
 
-    // ⭐ ENDPOINT TEMPORAL SIN VALIDACIÓN PARA DIAGNÓSTICO
     @PostMapping("/register-debug")
     public ResponseEntity<?> registerDebug(@RequestBody Map<String, Object> requestData) {
         System.out.println("🔧 REGISTER-DEBUG - DATOS RECIBIDOS: " + requestData);
@@ -169,12 +167,12 @@ public class AuthController {
                 request.setId_tipo_usuario(1); // Por defecto estudiante
             }
             
-            System.out.println("🔄 PROCESANDO REGISTRO DEBUG...");
+            System.out.println("PROCESANDO REGISTRO DEBUG...");
             AuthResponse response = authService.register(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
             
         } catch (Exception e) {
-            System.out.println("❌ ERROR EN REGISTER-DEBUG: " + e.getMessage());
+            System.out.println("ERROR EN REGISTER-DEBUG: " + e.getMessage());
             e.printStackTrace();
             Map<String, String> error = new HashMap<>();
             error.put("error", "Error: " + e.getMessage());
@@ -232,7 +230,7 @@ public class AuthController {
 
     @GetMapping("/test")
     public ResponseEntity<?> testEndpoint() {
-        System.out.println("✅ ENDPOINT /api/auth/test ACCEDIDO CORRECTAMENTE");
+        System.out.println("ENDPOINT /api/auth/test ACCEDIDO CORRECTAMENTE");
         Map<String, String> response = new HashMap<>();
         response.put("status", "OK");
         response.put("message", "El endpoint de autenticación está funcionando");

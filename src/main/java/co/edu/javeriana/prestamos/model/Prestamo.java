@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "prestamo") // El nombre exacto de la tabla de G1
+@Table(name = "prestamo") 
 public class Prestamo {
     @Id
     private Integer id_prestamo;
